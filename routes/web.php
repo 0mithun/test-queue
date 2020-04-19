@@ -11,6 +11,7 @@
 |
 */
 
+use App\Events\NewMessage;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
 
@@ -24,6 +25,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/check-queue', function(){
     Mail::to('mithun.tutorial.one@gmail.com')->send(new TestMail());
+
+    return 'Working';
+});
+
+Route::get('/send-event', function(){
+   //event(new NewMessage("Message Sending"));
+   broadcast(new NewMessage("Try with broadcast"));
 
     return 'Working';
 });

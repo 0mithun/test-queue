@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <title>Laravel</title>
 
@@ -69,6 +70,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                         <a href="{{ url('/check-queue') }}" class="nav-link">Send Mail</a>
+                        <a href="{{ url('/send-event') }}" class="nav-link">Send Event</a>
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
@@ -98,5 +100,12 @@
                 </div>
             </div>
         </div>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        Echo.channel('home')
+            .listen('NewMessage',(e)=>{
+                console.log(e)
+            });
+    </script>
     </body>
 </html>
